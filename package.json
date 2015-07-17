@@ -2,7 +2,7 @@
   "name": "ng-page-title",
   "version": "0.0.0",
   "description": "Page title directive for an Angular project",
-  "main": "./src/main",
+  "main": "./dist/ng-page-title",
   "dependencies": {
     "karma-mocha": "^0.2.0",
     "karma-mocha-reporter": "^1.0.2"

@@ -33,7 +33,10 @@ module.exports = function (grunt) {
     require("load-grunt-tasks")(grunt);
     require("grunt-timer").init(grunt);
 
+    var pkg = grunt.file.readJSON("package.json");
+
     var config = {
+        app: pkg.name,
         build: "dist",
         coverage: "coverage",
         port: 3000,
@@ -41,16 +44,28 @@ module.exports = function (grunt) {
         test: "test"
     };
 
-    var pkg = grunt.file.readJSON("package.json");
-
     grunt.initConfig({
+        banner: [
+            "/*!",
+            " * <%= pkg.name %>",
+            " *",
+            " * @author <%= pkg.author %>",
+            " * @build <%= grunt.template.today(\"isoDateTime\") %>",
+            " * @description <%= pkg.description %>",
+            " * @license <%= pkg.license %>",
+            " * @version <%= pkg.version %>",
+            " */"
+        ].join("\n"),
         config: config,
         pkg: pkg,
         browserify: {
-            web: {
+            src: {
+                options: {
+                    banner: "<%= banner %>"
+                },
                 files: {
-                    "./<%= config.build %>/app.js": [
-                        "./<%= config.src %>/app.js"
+                    "./<%= config.build %>/<%= config.app %>.js": [
+                        "./<%= config.src %>/<%= config.app %>.js"
                     ]
                 }
             }
@@ -117,7 +132,7 @@ module.exports = function (grunt) {
                 undef: true,
                 unused: false
             },
-            public: {
+            src: {
                 files: {
                     src: [
                         "Gruntfile.js",
@@ -127,7 +142,7 @@ module.exports = function (grunt) {
             }
         },
         jsonlint: {
-            public: {
+            src: {
                 src: [
                     "./*.json",
                     "./<%= config.src %>/**/*.json",
@@ -136,16 +151,16 @@ module.exports = function (grunt) {
             }
         },
         karma: {
-            public: {
+            src: {
                 configFile: "./<%= config.test %>/karma.conf.js",
                 singleRun: true
             }
         },
         ngAnnotate: {
-            web: {
+            src: {
                 files: {
-                    "./<%= config.dist %>/app.js": [
-                        "./<%= config.dist %>/app.js"
+                    "./<%= config.build %>/<%= config.app %>.js": [
+                        "./<%= config.build %>/<%= config.app %>.js"
                     ]
                 }
             }
@@ -215,10 +230,13 @@ module.exports = function (grunt) {
             }
         },
         uglify: {
-            web: {
+            options: {
+                banner: "<%= banner %>"
+            },
+            src: {
                 files: {
-                    "./<%= config.web %>/dist/scripts/app.min.js": [
-                        "./<%= config.web %>/dist/scripts/app.js"
+                    "./<%= config.build %>/<%= config.app %>.min.js": [
+                        "./<%= config.build %>/<%= config.app %>.js"
                     ]
                 }
             }
@@ -228,31 +246,13 @@ module.exports = function (grunt) {
     grunt.registerTask("build", "Builds an artifact", [
         "clean:build",
         "test",
-        "compile",
-        "copy:src",
-        "copyPackage"
+        "compile"
     ]);
 
     grunt.registerTask("compile", "Compiles the public application", [
-        "clean:public",
-        "browserify:web",
-        "uglify:web"
-    ]);
-
-    grunt.registerTask("copyPackage", "Copies the package.json file to the build directory", function () {
-
-        var tmp = pkg;
-
-        if (_.has(tmp, "ignore")) {
-            tmp = _.omit(tmp, tmp.ignore);
-        }
-
-        grunt.file.write(path.join(process.cwd(), config.build, "package.json"), JSON.stringify(tmp, null, 2));
-
-    });
-
-    grunt.registerTask("coverage", "Runs the code coverage tests", [
-        "mocha_istanbul"
+        "browserify:src",
+        "ngAnnotate:src",
+        "uglify:src"
     ]);
 
     grunt.registerTask("default", [
@@ -278,7 +278,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask("unittest", "Executes the unit tests", [
-        "karma:public"
+        "karma:src"
     ]);
 
 };
