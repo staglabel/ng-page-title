@@ -1,0 +1,69 @@
+{
+  "name": "ng-page-title",
+  "version": "0.0.0",
+  "description": "Page title directive for an Angular project",
+  "main": "./src/main",
+  "dependencies": {
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.0.2"
+  },
+  "devDependencies": {
+    "angular": "^1.4.3",
+    "brfs": "^1.4.0",
+    "browserify": "^10.2.6",
+    "browserify-shim": "^3.8.9",
+    "chai": "^3.1.0",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.8.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-jscs": "^1.8.0",
+    "grunt-jsonlint": "^1.0.4",
+    "grunt-karma": "^0.12.0",
+    "grunt-ng-annotate": "^1.0.1",
+    "grunt-prompt": "^1.3.0",
+    "grunt-shell": "^1.1.2",
+    "grunt-timer": "^0.6.0",
+    "karma": "^0.13.1",
+    "karma-browserify": "^4.2.1",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "karma-safari-launcher": "^0.1.1",
+    "karma-sinon": "^1.0.4",
+    "karma-sinon-chai": "^1.0.0",
+    "load-grunt-tasks": "^3.2.0",
+    "lodash": "^3.10.0",
+    "mocha": "^2.2.5",
+    "semver": "^5.0.1",
+    "sinon": "^1.15.4",
+    "sinon-chai": "^2.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/riggerthegeek/ng-page-title.git"
+  },
+  "keywords": [
+    "angular",
+    "page",
+    "title"
+  ],
+  "author": "Simon Emms <simon@simonemms.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/riggerthegeek/ng-page-title/issues"
+  },
+  "homepage": "https://github.com/riggerthegeek/ng-page-title",
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {}
+}

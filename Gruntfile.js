@@ -1,0 +1,284 @@
+/**
+ * Gruntfile
+ *
+ * Handles the building of the application.
+ *
+ * @param grunt
+ */
+
+"use strict";
+
+/* Node modules */
+var _ = require("lodash");
+var path = require("path");
+var semver = require("semver");
+
+
+function cleanTarget (target) {
+
+    if (target) {
+        target = ":" + target;
+    } else {
+        target = "";
+    }
+
+    return target;
+
+}
+
+
+module.exports = function (grunt) {
+
+    /* Load all grunt tasks */
+    require("load-grunt-tasks")(grunt);
+    require("grunt-timer").init(grunt);
+
+    var config = {
+        build: "dist",
+        coverage: "coverage",
+        port: 3000,
+        src: "src",
+        test: "test"
+    };
+
+    var pkg = grunt.file.readJSON("package.json");
+
+    grunt.initConfig({
+        config: config,
+        pkg: pkg,
+        browserify: {
+            web: {
+                files: {
+                    "./<%= config.build %>/app.js": [
+                        "./<%= config.src %>/app.js"
+                    ]
+                }
+            }
+        },
+        clean: {
+            build: {
+                files: [{
+                    src: [
+                        "./<%= config.build %>"
+                    ]
+                }]
+            },
+            coverage: {
+                files: [{
+                    src: [
+                        "./<%= config.coverage %>"
+                    ]
+                }]
+            }
+        },
+        copy: {
+            src: {
+                files: [{
+                    expand: true,
+                    src: [
+                        "./<%= config.src %>/**/*.js"
+                    ],
+                    dest: "./<%= config.build %>"
+                }]
+            }
+        },
+        jscs: {
+            options: {
+                config: ".jscsrc"
+            },
+            src: {
+                files: {
+                    src: [
+                        "./<%= config.src %>/**/*.js",
+                        "./<%= config.test %>/**/*.js"
+                    ]
+                }
+            }
+        },
+        jshint: {
+            options: {
+                bitwise: true,
+                camelcase: true,
+                curly: true,
+                eqeqeq: true,
+                esnext: true,
+                globals: {
+                },
+                immed: true,
+                indent: 4,
+                latedef: true,
+                noarg: true,
+                node: true,
+                newcap: true,
+                quotmark: "double",
+                regexp: true,
+                strict: true,
+                trailing: true,
+                undef: true,
+                unused: false
+            },
+            public: {
+                files: {
+                    src: [
+                        "Gruntfile.js",
+                        "./<%= config.src %>/**/*.js"
+                    ]
+                }
+            }
+        },
+        jsonlint: {
+            public: {
+                src: [
+                    "./*.json",
+                    "./<%= config.src %>/**/*.json",
+                    "./<%= config.test %>/**/*.json"
+                ]
+            }
+        },
+        karma: {
+            public: {
+                configFile: "./<%= config.test %>/karma.conf.js",
+                singleRun: true
+            }
+        },
+        ngAnnotate: {
+            web: {
+                files: {
+                    "./<%= config.dist %>/app.js": [
+                        "./<%= config.dist %>/app.js"
+                    ]
+                }
+            }
+        },
+        prompt: {
+            npmVersion: {
+                options: {
+                    questions: [{
+                        choices: [{
+                            value: "build",
+                            name:  "Build:  " + (pkg.version + "-?").yellow + " Unstable, betas, and release candidates."
+                        }, {
+                            value: "patch",
+                            name:  "Patch:  " + semver.inc(pkg.version, "patch").yellow + "   Backwards-compatible bug fixes."
+                        }, {
+                            value: "minor",
+                            name:  "Minor:  " + semver.inc(pkg.version, "minor").yellow + "   Add functionality in a backwards-compatible manner."
+                        }, {
+                            value: "major",
+                            name:  "Major:  " + semver.inc(pkg.version, "major").yellow + "   Incompatible API changes."
+                        }, {
+                            value: "custom",
+                            name:  "Custom: " + "?.?.?".yellow + "   Specify version..."
+                        }
+                        ],
+                        config: "bump.increment",
+                        message: "What sort of increment would you like?",
+                        type: "list"
+                    }, {
+                        config: "bump.version",
+                        message: "What specific version would you like",
+                        type: "input",
+                        when: function (answers) {
+                            return answers["bump.increment"] === "custom";
+                        },
+                        validate: function (value) {
+                            var valid = semver.valid(value) && true;
+                            return valid || "Must be a valid semver, such as 1.2.3-rc1. See " +
+                                "http://semver.org/".blue.underline + " for more details.";
+                        }
+                    }]
+                }
+            }
+        },
+        shell: {
+            gitPush: {
+                command: "git push"
+            },
+            gitPushTags: {
+                command: "git push origin --tags"
+            },
+            npmVersion: {
+                command: function () {
+                    var bump = {
+                        increment: grunt.config.get("bump.increment"),
+                        version: grunt.config.get("bump.version")
+                    };
+
+                    var script = bump.increment;
+
+                    if (script === "custom") {
+                        script = bump.version;
+                    }
+
+                    return "npm version " + script;
+                }
+            }
+        },
+        uglify: {
+            web: {
+                files: {
+                    "./<%= config.web %>/dist/scripts/app.min.js": [
+                        "./<%= config.web %>/dist/scripts/app.js"
+                    ]
+                }
+            }
+        }
+    });
+
+    grunt.registerTask("build", "Builds an artifact", [
+        "clean:build",
+        "test",
+        "compile",
+        "copy:src",
+        "copyPackage"
+    ]);
+
+    grunt.registerTask("compile", "Compiles the public application", [
+        "clean:public",
+        "browserify:web",
+        "uglify:web"
+    ]);
+
+    grunt.registerTask("copyPackage", "Copies the package.json file to the build directory", function () {
+
+        var tmp = pkg;
+
+        if (_.has(tmp, "ignore")) {
+            tmp = _.omit(tmp, tmp.ignore);
+        }
+
+        grunt.file.write(path.join(process.cwd(), config.build, "package.json"), JSON.stringify(tmp, null, 2));
+
+    });
+
+    grunt.registerTask("coverage", "Runs the code coverage tests", [
+        "mocha_istanbul"
+    ]);
+
+    grunt.registerTask("default", [
+        "build"
+    ]);
+
+    grunt.registerTask("lint", "Runs code quality tests", [
+        "jshint",
+        "jscs",
+        "jsonlint"
+    ]);
+
+    grunt.registerTask("test", "Runs tests on the application", [
+        "lint",
+        "unittest"
+    ]);
+
+    grunt.registerTask("tag", "Tag a new release", [
+        "prompt:npmVersion",
+        "shell:npmVersion",
+        "shell:gitPush",
+        "shell:gitPushTags"
+    ]);
+
+    grunt.registerTask("unittest", "Executes the unit tests", [
+        "karma:public"
+    ]);
+
+};
