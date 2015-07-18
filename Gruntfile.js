@@ -240,6 +240,28 @@ module.exports = function (grunt) {
                     ]
                 }
             }
+        },
+        watch: {
+            options: {
+                atBegin: true,
+                dateFormat: function (time) {
+                    grunt.log.writeln("The task finished in " + time + "ms");
+                    grunt.log.writeln("Waiting for more changes…");
+                }
+            },
+            compile: {
+                files: [
+                    "Gruntfile.js",
+                    "package.json",
+                    "<%= config.src %>/**/*.js",
+                    "<%= config.src %>/**/*.json",
+                    "<%= config.test %>/**/*.js",
+                    "<%= config.test %>/**/*.json"
+                ],
+                tasks: [
+                    "compile"
+                ]
+            }
         }
     });
 
