@@ -118,6 +118,7 @@ module.exports = function (grunt) {
                 eqeqeq: true,
                 esnext: true,
                 globals: {
+                    angular: true
                 },
                 immed: true,
                 indent: 4,
