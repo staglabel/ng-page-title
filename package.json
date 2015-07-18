@@ -9,6 +9,8 @@
   },
   "devDependencies": {
     "angular": "^1.4.3",
+    "angular-mocks": "^1.4.3",
+    "angular-ui-router": "^0.2.15",
     "brfs": "^1.4.0",
     "browserify": "^10.2.6",
     "chai": "^3.1.0",
@@ -41,6 +43,9 @@
     "semver": "^5.0.1",
     "sinon": "^1.15.4",
     "sinon-chai": "^2.8.0"
+  },
+  "peerDependencies": {
+    "angular-ui-router": "*"
   },
   "scripts": {
     "test": "grunt test"
