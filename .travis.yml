@@ -13,3 +13,13 @@ before_script:
 - npm install -g grunt-cli
 script:
 - npm test
+deploy:
+  provider: npm
+  email: simon@simonemms.com
+  api_key:
+    secure: Gz3RQ0HZQ6+qzFmz6nQB083Kx7msARaUxJX+D/nfy2taCG4ab74qH7H7+wcC0ixTlXzIw0urkalGrncUm3kbyKLMeeNBaoipPrITixWYtQxSrDckmcufwfXpv5AXRYFL93f3j+yd8Fp5PKyMbZuwb+UjR7h6BkEGCBwpvAZRgcn9EamDp9RgAO/d8ToDOZhEBGzF1se9At3T0vsg2HO5cDlnIQGumVNUCJ6bwU0XUE/UzfJjxqPve867gjEVj9GNrnGkyLGVyLvIMJQVFRt//+BRkPoEOK9oxkXmrUE/+FXnmOWrFzNxIfffYoJWwHKD2G1EWQYig7CJR2af8DzUuzB/0b1OQ7Jk+czEJwteztq8/x2CCJrtZ9Mbf9zA091IsVjpIbaXUyUoQgChADfqUI3iEH5G+WUqMdKZZXXrwYXizMH/GkgCW7zasgHbv9HZc9zIpe7aMqMgpxI2ePx9OhmNHCXkJ2O2BYKdzQZlokHh9vaSJxhHbZQ31vQxAtwmwuPqmFWSCtRqF/X3DAW+Q/OeGXU1l5cFhCR//XMF/uyq5VV8QVOLmm897oK37bdjn+1nz83v0gumeYdb9lTTv7uXfnj8AMwxwCT+Z6XLKBOFMl6NOqn3f2/f67ht2G2QJwtvZd+HUJZdsYtpv5m1V5yH54THrBVBBXUee7OWjos=
+  skip_cleanup: true
+  on:
+    all_branches: true
+    tags: true
+    repo: riggerthegeek/ng-page-title
