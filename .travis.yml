@@ -12,14 +12,24 @@ before_install:
 before_script:
 - npm install -g grunt-cli
 script:
-- npm test
+- grunt build
 deploy:
-  provider: npm
-  email: simon@simonemms.com
-  api_key:
-    secure: Gz3RQ0HZQ6+qzFmz6nQB083Kx7msARaUxJX+D/nfy2taCG4ab74qH7H7+wcC0ixTlXzIw0urkalGrncUm3kbyKLMeeNBaoipPrITixWYtQxSrDckmcufwfXpv5AXRYFL93f3j+yd8Fp5PKyMbZuwb+UjR7h6BkEGCBwpvAZRgcn9EamDp9RgAO/d8ToDOZhEBGzF1se9At3T0vsg2HO5cDlnIQGumVNUCJ6bwU0XUE/UzfJjxqPve867gjEVj9GNrnGkyLGVyLvIMJQVFRt//+BRkPoEOK9oxkXmrUE/+FXnmOWrFzNxIfffYoJWwHKD2G1EWQYig7CJR2af8DzUuzB/0b1OQ7Jk+czEJwteztq8/x2CCJrtZ9Mbf9zA091IsVjpIbaXUyUoQgChADfqUI3iEH5G+WUqMdKZZXXrwYXizMH/GkgCW7zasgHbv9HZc9zIpe7aMqMgpxI2ePx9OhmNHCXkJ2O2BYKdzQZlokHh9vaSJxhHbZQ31vQxAtwmwuPqmFWSCtRqF/X3DAW+Q/OeGXU1l5cFhCR//XMF/uyq5VV8QVOLmm897oK37bdjn+1nz83v0gumeYdb9lTTv7uXfnj8AMwxwCT+Z6XLKBOFMl6NOqn3f2/f67ht2G2QJwtvZd+HUJZdsYtpv5m1V5yH54THrBVBBXUee7OWjos=
-  skip_cleanup: true
-  on:
-    all_branches: true
-    tags: true
-    repo: riggerthegeek/ng-page-title
+  - provider: releases
+    user: riggerthegeek
+    password:
+      secure: NHcOYn/H4RaIvzduncksUCJbdveG3vVChyoISu/wbwyg0qVLQ4rWFBPV64FRIB4HJb5e5LjsuXOnn65tyWi/pk43YkvgTMn9gXsz2Kf2YdyAJOBNWKW/Bk8B3eybc+X12R7NKslRIFW7IRPRv6OjMynCHDOyIaCnC1rBBgt6Br/j9h4fP3wz5jcd6oFAchdgd8T6nOn8LnoMJB8N8TvdAjQmnK4SH4XUfgIqTBpZqa+g0yYw/eAXg1VhVRvJEA+86aFlBMii21Wvn4YoqHt3VAkBVzzG1J9QfqWdsYUYGepObAfupywS48Tpk8MYQr9+iSzSWsQ8VlCanKmgsNfarZ8jesCQgtQ+/k6A9df3wHZCdhA71MNvGGJ1uqo3UqhinXY+/tz/qyOVFuJ3FChzVp0g8OFhAJyBe62wi0Y5bWGVMEFK9WoNdvUt670nd8MkX22jjO4Zv5JorShQo3ZAIp50u7iCUbIBghpGVZ0qnxUoat1/8nETKj1wuC67CPCEKcy06OMYbCxiY7zQmXKcbv2rkhek+1eRs8PuPZHAW7E0YCeqHm7JBX3qXSquuZOm4CN9jvDR5B51fBEN0n7969jXCXYrECLmOtXbb2aAaKNnTptu2BDS1oK/SDH6v8HCH1BUmdcQ74WmDLn9q6/BkK6ww2173u/V1Kgc7hK47bU=
+    file:
+    - dist/ng-page-title.js
+    - dist/ng-page-title.min.js
+    skip_cleanup: true
+    on:
+      tags: true
+  - provider: npm
+    email: simon@simonemms.com
+      api_key:
+        secure: Gz3RQ0HZQ6+qzFmz6nQB083Kx7msARaUxJX+D/nfy2taCG4ab74qH7H7+wcC0ixTlXzIw0urkalGrncUm3kbyKLMeeNBaoipPrITixWYtQxSrDckmcufwfXpv5AXRYFL93f3j+yd8Fp5PKyMbZuwb+UjR7h6BkEGCBwpvAZRgcn9EamDp9RgAO/d8ToDOZhEBGzF1se9At3T0vsg2HO5cDlnIQGumVNUCJ6bwU0XUE/UzfJjxqPve867gjEVj9GNrnGkyLGVyLvIMJQVFRt//+BRkPoEOK9oxkXmrUE/+FXnmOWrFzNxIfffYoJWwHKD2G1EWQYig7CJR2af8DzUuzB/0b1OQ7Jk+czEJwteztq8/x2CCJrtZ9Mbf9zA091IsVjpIbaXUyUoQgChADfqUI3iEH5G+WUqMdKZZXXrwYXizMH/GkgCW7zasgHbv9HZc9zIpe7aMqMgpxI2ePx9OhmNHCXkJ2O2BYKdzQZlokHh9vaSJxhHbZQ31vQxAtwmwuPqmFWSCtRqF/X3DAW+Q/OeGXU1l5cFhCR//XMF/uyq5VV8QVOLmm897oK37bdjn+1nz83v0gumeYdb9lTTv7uXfnj8AMwxwCT+Z6XLKBOFMl6NOqn3f2/f67ht2G2QJwtvZd+HUJZdsYtpv5m1V5yH54THrBVBBXUee7OWjos=
+      skip_cleanup: true
+      on:
+        all_branches: true
+        tags: true
+        repo: riggerthegeek/ng-page-title
