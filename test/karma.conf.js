@@ -6,6 +6,7 @@
 
 
 /* Node modules */
+var os = require("os");
 
 
 /* Third-party modules */
@@ -27,13 +28,21 @@ module.exports = function (karma) {
 
         browsers: [
             "PhantomJS",
-            "Firefox",
-            "Chrome",
-            "Safari"
+            "Firefox"
         ],
 
+        customLaunchers: {
+            "Chrome_travis_ci": {
+                base: "Chrome",
+                flags: [
+                    "--no-sandbox"
+                ]
+            }
+        },
+
         files: [
-            "../src/app.js",
+            "../node_modules/angular/angular.js",
+            "../src/ng-page-title.js",
             "unit/**/*.js"
         ],
 
@@ -59,7 +68,7 @@ module.exports = function (karma) {
         ],
 
         preprocessors: {
-            "../src/app.js": [
+            "../src/ng-page-title.js": [
                 "browserify"
             ],
             "unit/**/*.js": [
@@ -72,6 +81,16 @@ module.exports = function (karma) {
         ]
 
     };
+
+    if (process.env.TRAVIS) {
+        config.browsers.push("Chrome_travis_ci");
+    } else {
+        config.browsers.push("Chrome");
+    }
+
+    if (os.platform() === "darwin") {
+        config.browsers.push("Safari");
+    }
 
     return karma.set(config);
 

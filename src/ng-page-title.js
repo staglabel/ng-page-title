@@ -9,13 +9,17 @@
 
 
 /* Third-party modules */
-var angular = require("angular");
 
 
 /* Files */
 
 
-var app = angular.module("ng-page-title", [
+var app = angular.module("ngPageTitle", [
+    require("angular-ui-router")
+])
+
+    /* Directives */
+    .directive("stateTitle", require("./directive/stateTitle"));
 
 
-]);
+module.exports = app;
