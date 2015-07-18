@@ -262,6 +262,19 @@ module.exports = function (grunt) {
                 tasks: [
                     "compile"
                 ]
+            },
+            test: {
+                files: [
+                    "Gruntfile.js",
+                    "package.json",
+                    "<%= config.src %>/**/*.js",
+                    "<%= config.src %>/**/*.json",
+                    "<%= config.test %>/**/*.js",
+                    "<%= config.test %>/**/*.json"
+                ],
+                tasks: [
+                    "test"
+                ]
             }
         }
     });
