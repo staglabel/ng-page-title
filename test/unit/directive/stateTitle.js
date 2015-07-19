@@ -161,6 +161,18 @@ describe("directive: stateTitle", function () {
 
         });
 
+        it("should wrap the multi title in a pattern", function () {
+
+            compileTitle("<title state-title pattern=\"My Site Name | %s %s\"></title>", {
+                data: {
+                    pageTitle: "Page Title"
+                }
+            });
+
+            expect(element.text()).to.be.equal("My Site Name | Page Title Page Title");
+
+        });
+
     });
 
 });

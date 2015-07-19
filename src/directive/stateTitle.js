@@ -43,7 +43,7 @@ function StateTitle ($rootScope, $interpolate, $state) {
                 title = $interpolate(title)(currentState);
 
                 if (_.isString(pattern)) {
-                    title = pattern.replace("%s", title);
+                    title = pattern.replace(/\%s/g, title);
                 }
 
                 /* Set the title */
