@@ -21,3 +21,4 @@ deploy:
       - dist/ng-page-title.min.js
     on:
       repo: riggerthegeek/ng-page-title
+      tags: true
