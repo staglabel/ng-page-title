@@ -18,8 +18,15 @@ This currently works only for [UI Router](http://angular-ui.github.io/ui-router/
 
 # Get Started
 
-Create your app and configure UI Router as normal.  Ensure that the `ng-app` tag is on your `<html>` tag (usually, this
-would go on your `<body>` tag).  Then you can create your `<title state-title></title>` tag.  Here's the example HTML
+Create your app and configure UI Router as normal.  Include ng-page-title by including it as a dependency to Angular
+
+    angular.module("myApp", [
+        "ngPageTitle"
+        ...
+    ]);
+
+Ensure that the `ng-app` tag is on your `<html>` tag (usually, this would go on your `<body>` tag).  Then you can
+create your `<title state-title></title>` tag.  Here's the example HTML
 
     <!DOCTYPE html>
     <html ng-app="myApp">
