@@ -1,6 +1,6 @@
 {
   "name": "ng-page-title",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Page title directive for an Angular project",
   "main": "./dist/ng-page-title.min.js",
   "dependencies": {
