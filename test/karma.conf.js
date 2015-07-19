@@ -19,6 +19,8 @@ module.exports = function (karma) {
 
     var config = {
 
+        autoWatch: false,
+
         browserify: {
             debug: true,
             transform: [
