@@ -10,7 +10,6 @@
 
 /* Node modules */
 var _ = require("lodash");
-var path = require("path");
 var semver = require("semver");
 
 
@@ -53,7 +52,6 @@ module.exports = function (grunt) {
             " * @build <%= grunt.template.today(\"isoDateTime\") %>",
             " * @description <%= pkg.description %>",
             " * @license <%= pkg.license %>",
-            " * @version <%= pkg.version %>",
             " */"
         ].join("\n"),
         config: config,
