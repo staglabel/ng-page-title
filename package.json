@@ -45,9 +45,6 @@
     "sinon": "^1.15.4",
     "sinon-chai": "^2.8.0"
   },
-  "peerDependencies": {
-    "angular-ui-router": "*"
-  },
   "scripts": {
     "test": "grunt test"
   },
