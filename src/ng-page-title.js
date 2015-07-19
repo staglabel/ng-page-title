@@ -14,9 +14,7 @@
 /* Files */
 
 
-var app = angular.module("ngPageTitle", [
-    require("angular-ui-router")
-])
+var app = angular.module("ngPageTitle", [])
 
     /* Directives */
     .directive("stateTitle", require("./directive/stateTitle"));

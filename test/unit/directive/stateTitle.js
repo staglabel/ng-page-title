@@ -11,6 +11,7 @@
 /* Third-party modules */
 var angular = require("angular");
 require("angular-mocks");
+require("angular-ui-router");
 
 
 /* Files */
@@ -25,6 +26,7 @@ describe("directive: stateTitle", function () {
         element;
 
     beforeEach(angular.mock.module("ngPageTitle"));
+    beforeEach(angular.mock.module("ui.router"));
 
     beforeEach(angular.mock.inject(function (_$rootScope_, _$compile_, _$state_) {
 
