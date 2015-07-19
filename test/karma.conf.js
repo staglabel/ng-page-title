@@ -64,9 +64,7 @@ module.exports = function (karma) {
             "karma-sinon-chai",
             "karma-mocha-reporter",
             "karma-phantomjs-launcher",
-            "karma-firefox-launcher",
-            "karma-chrome-launcher",
-            "karma-safari-launcher"
+            "karma-firefox-launcher"
         ],
 
         preprocessors: {
@@ -83,16 +81,6 @@ module.exports = function (karma) {
         ]
 
     };
-
-    if (process.env.TRAVIS) {
-        config.browsers.push("Chrome_travis_ci");
-    } else {
-        config.browsers.push("Chrome");
-    }
-
-    if (os.platform() === "darwin") {
-        config.browsers.push("Safari");
-    }
 
     return karma.set(config);
 
