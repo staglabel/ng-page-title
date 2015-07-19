@@ -14,22 +14,10 @@ script:
 deploy:
   -
     provider: releases
-    user: riggerthegeek
-    password:
-      secure: R4cqdXkVti53thGF1+8mDIxF0bG0+4B0QFR/gutB5GeV+yBbCaqIgdUBqfHW9nestZtamUZNqoQT+TvRYkasmk3RxTRBmUvI3wP/zOYymKN2ceNOHqBFYcMvgjTECfNapXW9C4eLzet/38Q+yK7kqeWer9Y3qhnijHh+snTMFPIGC//0s1Ek9jxNJqe8wCgO9ntd4WRzs9RIB75z4kZ+VeJFd/6WzfRinQz4nlxAMtEE+W2v5OgyuZw3LM9DKe2iXxZFVR/9RIbymyOMGITAJY8DRRq6sKIWCoSxedGeoKxL1rAN6ESZ3oJokwuszhZjBoKOeJOCnihLD9fGszDqCbigocIgs9C5jUX2wW7OA9nYkl8e0BJ2yDGsJf7+7KdjGLwldHxuu8HoeWkvGIqU5jg6YxQ7kmqZRF2tEFHK/SlvApPG0c5HYjtRTjwhp+x2xYDwpgwX2LdKqh6UJwWlgh+SCToRdPgeFzQ3U9zqEj54e1nistWEkN4xfkvL8xOw7vTktRrBfIvluGUgLqvd1rzcot50zxr/2yoRz6/zaTY6rDe0VPEEfCJPBwMftzjyWx4GxLsOYeg3IuFBPpYubKbkHVhLGohMwHYiaNO+yyDZ49s2R06LGkWeEY7rzr+AQJVz3CeSeV31KXSU+/k/X+0UQTM3i+dllv6ekFJ3cww=
+    api_key:
+      secure: PCUejpQ1R8XNhynhzVslRp/RlKoneKOD72JP4UvnSfyycLTKLD5Dm6vgUrmN9H4XjnC68XvLUbfnzwIN4SAf0o0agU40EPHJV4avg7mgErYjxbtP6XkM49azWpcRD2T6FFm0syHAkL1LaXl7CcNwWTDMw5xspYwaXquXjMQJwUXuwxh8BkwUniX3wPR9R+nlX3Vt/xEKt5uIhPsjDFz1M3VNcW9WUUq/GNRw2zHrCWc7Wv7qaGsfBrxPg6XxSJ36MajcsYB70CMjdKn3X3fdeA/BzH8M9ukCJ77aS43taOrZ77VnYpjkqMMid8rvHdk5ef6RDETNbbQm+OevSB7CTtLHmJIEliSH+rnuK7pcQBQbPlDv0a5fCCNDYeuxQYkcWXa23ceuNMq5oGnugE1l8BTwoK9AxptiHlDS+RV49ZrBFStbO29RwLerEGV5LkrxMhcrrE+zGzrWKBlc5NM8fld4eA8aX2bog1mul+NvF6YnKptsZjzbslBTAcTsNHi/ZCPpeRyawQtVvG1X5Dw9aJ7fhHPwSfvvBbPZvvKf+k+YV+DTPvA+UWmpDadn+EQwkw8FjRXGsmsi+aXtlRGqdoBY+b6ox+9l10DdXbX3X4rgTixYhFwy92oC3lsntTnUHu7ahXavHgxiAVd861cLeYh9KRUWo9/tKfSkLDKvap8=
     file:
-    - dist/ng-page-title.js
-    - dist/ng-page-title.min.js
-    skip_cleanup: true
+      - dist/ng-page-title.js
+      - dist/ng-page-title.min.js
     on:
-      tags: true
-#  -
-#    provider: npm
-#    email: simon@simonemms.com
-#    api_key:
-#      secure: Gz3RQ0HZQ6+qzFmz6nQB083Kx7msARaUxJX+D/nfy2taCG4ab74qH7H7+wcC0ixTlXzIw0urkalGrncUm3kbyKLMeeNBaoipPrITixWYtQxSrDckmcufwfXpv5AXRYFL93f3j+yd8Fp5PKyMbZuwb+UjR7h6BkEGCBwpvAZRgcn9EamDp9RgAO/d8ToDOZhEBGzF1se9At3T0vsg2HO5cDlnIQGumVNUCJ6bwU0XUE/UzfJjxqPve867gjEVj9GNrnGkyLGVyLvIMJQVFRt//+BRkPoEOK9oxkXmrUE/+FXnmOWrFzNxIfffYoJWwHKD2G1EWQYig7CJR2af8DzUuzB/0b1OQ7Jk+czEJwteztq8/x2CCJrtZ9Mbf9zA091IsVjpIbaXUyUoQgChADfqUI3iEH5G+WUqMdKZZXXrwYXizMH/GkgCW7zasgHbv9HZc9zIpe7aMqMgpxI2ePx9OhmNHCXkJ2O2BYKdzQZlokHh9vaSJxhHbZQ31vQxAtwmwuPqmFWSCtRqF/X3DAW+Q/OeGXU1l5cFhCR//XMF/uyq5VV8QVOLmm897oK37bdjn+1nz83v0gumeYdb9lTTv7uXfnj8AMwxwCT+Z6XLKBOFMl6NOqn3f2/f67ht2G2QJwtvZd+HUJZdsYtpv5m1V5yH54THrBVBBXUee7OWjos=
-#    skip_cleanup: true
-#    on:
-#      all_branches: true
-#      tags: true
-#      repo: riggerthegeek/ng-page-title
+      repo: riggerthegeek/ng-page-title
