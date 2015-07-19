@@ -2,7 +2,7 @@
  * ng-page-title
  *
  * @author Simon Emms <simon@simonemms.com>
- * @build 2015-07-19T12:40:50
+ * @build 2015-07-19T13:14:02
  * @description Page title directive for an Angular project
  * @license MIT
  */
@@ -12407,7 +12407,7 @@ function StateTitle ($rootScope, $interpolate, $state) {
                 title = $interpolate(title)(currentState);
 
                 if (_.isString(pattern)) {
-                    title = pattern.replace("%s", title);
+                    title = pattern.replace(/\%s/g, title);
                 }
 
                 /* Set the title */
