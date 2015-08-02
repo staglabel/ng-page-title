@@ -32,6 +32,7 @@ module.exports = function (grunt) {
     require("load-grunt-tasks")(grunt);
     require("grunt-timer").init(grunt);
 
+    var bower = grunt.file.readJSON("bower.json");
     var pkg = grunt.file.readJSON("package.json");
 
     var config = {
@@ -40,7 +41,7 @@ module.exports = function (grunt) {
         coverage: "coverage",
         port: 3000,
         src: "src",
-        test: "test"
+        test: "test",
     };
 
     grunt.initConfig({
@@ -52,6 +53,7 @@ module.exports = function (grunt) {
             " * @build <%= grunt.template.today(\"isoDateTime\") %>",
             " * @description <%= pkg.description %>",
             " * @license <%= pkg.license %>",
+            " * @version <%= bower.version %>", /* Use bower as can set this manually for building */
             " */"
         ].join("\n"),
         config: config,
