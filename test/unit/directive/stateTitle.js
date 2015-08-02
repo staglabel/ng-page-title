@@ -32,7 +32,7 @@ describe("directive: stateTitle", function () {
 
         $rootScope = _$rootScope_;
         $scope = $rootScope.$new();
-        $compile = _$compile_
+        $compile = _$compile_;
         $state = _$state_;
 
     }));
