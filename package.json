@@ -10,6 +10,7 @@
   "devDependencies": {
     "angular": "^1.4.3",
     "angular-mocks": "^1.4.3",
+    "angular-route": "^1.4.3",
     "angular-ui-router": "^0.2.15",
     "brfs": "^1.4.0",
     "browserify": "^10.2.6",
