@@ -4,8 +4,6 @@
   "description": "Page title directive for an Angular project",
   "main": "./dist/ng-page-title.min.js",
   "dependencies": {
-    "karma-mocha": "^0.2.0",
-    "karma-mocha-reporter": "^1.0.4"
   },
   "devDependencies": {
     "angular": "^1.4.3",
@@ -33,6 +31,8 @@
     "karma-browserify": "^4.2.1",
     "karma-chai": "^0.1.0",
     "karma-firefox-launcher": "^0.1.6",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.0.4",
     "karma-phantomjs-launcher": "^0.2.0",
     "karma-sinon": "^1.0.4",
     "karma-sinon-chai": "^1.0.0",
