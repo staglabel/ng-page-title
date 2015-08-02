@@ -17,7 +17,8 @@
 var app = angular.module("ngPageTitle", [])
 
     /* Directives */
-    .directive("stateTitle", require("./directive/stateTitle"));
+    .directive("stateTitle", require("./directive/stateTitle"))
+    .directive("pageTitle", require("./directive/pageTitle"));
 
 
 module.exports = app;
