@@ -42,6 +42,7 @@ module.exports = function (grunt) {
         port: 3000,
         src: "src",
         test: "test",
+        version: bower.version
     };
 
     grunt.initConfig({
@@ -53,7 +54,7 @@ module.exports = function (grunt) {
             " * @build <%= grunt.template.today(\"isoDateTime\") %>",
             " * @description <%= pkg.description %>",
             " * @license <%= pkg.license %>",
-            " * @version <%= bower.version %>", /* Use bower as can set this manually for building */
+            " * @version v<%= config.version %>", /* Use bower as can set this manually for building before tagging */
             " */"
         ].join("\n"),
         config: config,
