@@ -20,6 +20,37 @@ Angular [Route](https://docs.angularjs.org/api/ngRoute/service/$route).  If you 
 
 # Get Started
 
+## Get the package
+
+#### npm
+
+Use this if getting using [Browserify](http://browserify.org) (my preferred solution)
+
+    // Get dependency using command line
+    npm install ng-page-title --save-dev
+
+    // Include in your main Angular file, eg app.js
+    require("ng-page-title");
+
+#### Bower
+
+Use this is using [Bower](http://bower.io) for your dependency manager
+
+    // Get dependency using command line
+    bower install ng-page-title --save
+
+    // Include in your main HTML file
+    <script src="/path/to/dist/ng-page-title.min.js"></script>
+
+#### CDN
+
+Use this is not using any dependency manager (not recommended)
+
+    // Include in your HTML file
+    <script src="https://cdn.rawgit.com/riggerthegeek/ng-page-title/master/dist/ng-page-title.min.js"></script>
+
+## Include the package in your Angular app
+
 Create your app and configure UI Router as normal.  Include ng-page-title by including it as a dependency to Angular
 
     angular.module("myApp", [
@@ -27,8 +58,8 @@ Create your app and configure UI Router as normal.  Include ng-page-title by inc
         ...
     ]);
 
-Ensure that the `ng-app` tag is on your `<html>` tag (usually, this would go on your `<body>` tag).  Then you can
-create your `<title state-title></title>` or `<title page-title></title>` tag.  Here's the example HTML
+Ensure that the `ng-app` tag is on your `<html>` tag (this might be on your `<body>` tag).  Then you can create your
+`<title state-title></title>` or `<title page-title></title>` tag.  Here's the example HTML
 
     <!DOCTYPE html>
     <html ng-app="myApp">
@@ -38,7 +69,7 @@ create your `<title state-title></title>` or `<title page-title></title>` tag.  
         ...
     </html>
 
-And if you're using ngRoute
+And if you're using _ngRoute_
 
     <!DOCTYPE html>
     <html ng-app="myApp">
