@@ -2,7 +2,7 @@
  * ng-page-title
  *
  * @author Simon Emms <simon@simonemms.com>
- * @build 2015-07-19T13:14:02
+ * @build 2015-08-02T20:55:26
  * @description Page title directive for an Angular project
  * @license MIT
  */
@@ -12363,6 +12363,77 @@
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],2:[function(require,module,exports){
 /**
+ * pageTitle
+ */
+
+"use strict";
+
+
+/* Node modules */
+
+
+/* Third-party modules */
+var _ = require("lodash");
+
+
+/* Files */
+
+
+/* @ngInject */
+function PageTitle ($rootScope, $interpolate, $route) {
+
+
+    return {
+
+        link: function (scope, element, attrs) {
+
+            var listener = function (event, next) {
+
+                var title = attrs.pageTitle || "Untitled page"; /* Get the default title */
+                var titleElement = attrs.titleElement || "pageTitle"; /* Where to look for the title in the data */
+                var pattern = attrs.pattern || null; /* Do we need to decorate the title? */
+
+                /* Get the page title from the data element */
+                if (_.has(next, ["$$route", "data", titleElement]) && _.isEmpty(next.$$route.data[titleElement]) === false) {
+                    title = next.$$route.data[titleElement];
+                }
+
+                /* Interpolate the title */
+                var currentState = next;
+                if (_.has(currentState, "locals")) {
+                    currentState = currentState.locals;
+                }
+
+                title = $interpolate(title)(currentState);
+
+                if (_.isString(pattern)) {
+                    title = pattern.replace(/\%s/g, title);
+                }
+
+                /* Set the title */
+                element.text(title);
+
+            };
+
+            $rootScope.$on("$routeChangeSuccess", listener);
+
+        },
+
+        restrict: "A",
+
+        scope: false
+
+    };
+
+
+}
+PageTitle.$inject = ["$rootScope", "$interpolate", "$route"];
+
+
+module.exports = PageTitle;
+
+},{"lodash":1}],3:[function(require,module,exports){
+/**
  * stateTitle
  */
 
@@ -12421,7 +12492,7 @@ function StateTitle ($rootScope, $interpolate, $state) {
 
         restrict: "A",
 
-        scope: true
+        scope: false
 
     };
 
@@ -12432,7 +12503,7 @@ StateTitle.$inject = ["$rootScope", "$interpolate", "$state"];
 
 module.exports = StateTitle;
 
-},{"lodash":1}],3:[function(require,module,exports){
+},{"lodash":1}],4:[function(require,module,exports){
 /**
  * app
  */
@@ -12452,9 +12523,10 @@ module.exports = StateTitle;
 var app = angular.module("ngPageTitle", [])
 
     /* Directives */
-    .directive("stateTitle", require("./directive/stateTitle"));
+    .directive("stateTitle", require("./directive/stateTitle"))
+    .directive("pageTitle", require("./directive/pageTitle"));
 
 
 module.exports = app;
 
-},{"./directive/stateTitle":2}]},{},[3]);
+},{"./directive/pageTitle":2,"./directive/stateTitle":3}]},{},[4]);
