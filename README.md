@@ -34,7 +34,7 @@ Use this if getting using [Browserify](http://browserify.org) (my preferred solu
 
 #### Bower
 
-Use this is using [Bower](http://bower.io) for your dependency manager
+Use this if using [Bower](http://bower.io) for your dependency manager
 
     // Get dependency using command line
     bower install ng-page-title --save
@@ -44,7 +44,7 @@ Use this is using [Bower](http://bower.io) for your dependency manager
 
 #### CDN
 
-Use this is not using any dependency manager (not recommended)
+Use this if not using any dependency manager (not recommended)
 
     // Include in your HTML file
     <script src="https://cdn.rawgit.com/riggerthegeek/ng-page-title/master/dist/ng-page-title.min.js"></script>
