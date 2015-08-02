@@ -16,7 +16,7 @@ title. It also interpolates resolved data automatically.
 
 This works for both [UI Router](http://angular-ui.github.io/ui-router/site/#/api/ui.router) states and the default
 Angular [Route](https://docs.angularjs.org/api/ngRoute/service/$route).  If you are using UI Router, use the
-`state-title` directive and if you are using _ngRoute_ then use the `page-title` directive.
+`state-title` directive and if you are using ngRoute then use the `page-title` directive.
 
 # Get Started
 
