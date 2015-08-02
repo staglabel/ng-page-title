@@ -33,15 +33,6 @@ module.exports = function (karma) {
             "Firefox"
         ],
 
-        customLaunchers: {
-            "Chrome_travis_ci": {
-                base: "Chrome",
-                flags: [
-                    "--no-sandbox"
-                ]
-            }
-        },
-
         files: [
             "../node_modules/angular/angular.js",
             "../src/ng-page-title.js",
