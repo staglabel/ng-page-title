@@ -57,7 +57,7 @@ function StateTitle ($rootScope, $interpolate, $state) {
 
         restrict: "A",
 
-        scope: true
+        scope: false
 
     };
 
