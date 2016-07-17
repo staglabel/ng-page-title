@@ -24,31 +24,26 @@ function StateTitle ($rootScope, $interpolate, $state) {
         link: function (scope, element, attrs) {
 
             var listener = function (event, toState) {
-                //console.log("toState: ", toState.data ? toState.data : toState);
-                console.log("toState: ", toState);
 
                 var title = attrs.stateTitle || "Untitled page"; /* Get the default title */
                 var titleElement = attrs.titleElement || "pageTitle"; /* Where to look for the title in the data */
                 var pattern = attrs.pattern || null; /* Do we need to decorate the title? */
+                var currentState = $state.$current; /* Create reference to the current state */
+                var viewWithTitle;
 
-                //
-                // NOTE: View cannot be unnamed! (add to docs)
-                //
-
-                /* Check for multiple views */
+                /* Check for multiple views on the state */
                 if (_.has(toState, "views")) {
 
-                    _.forEach(toState.views, function (key, value) {
-                        console.log("KEY: ", key);
-                        console.log("VALUE: ", value);
+                    /* Find the name of first view found with a titleElement */
+                    viewWithTitle = _.findKey(toState.views, function (view) {
+                        if (_.has(view, "data." + titleElement)) {
+                            return view;
+                        }
                     });
 
-                    /*
-                     *title = viewWithTitle.data[titleElement];
-                     */
+                    title = toState.views[viewWithTitle].data[titleElement];
 
                 } else {
-                    console.log("has elemtn: ", _.has(toState, "data." + titleElement));
 
                     /* Get the page title from the data element */
                     if (_.has(toState, "data." + titleElement) && _.isEmpty(toState.data[titleElement]) === false) {
@@ -57,45 +52,15 @@ function StateTitle ($rootScope, $interpolate, $state) {
 
                 }
 
-                console.log("title: ", title);
-
-                console.warn("currentState: ");
-                console.log($state.$current);
-
-                /* Get the current state */
-                var currentState = $state.$current;
-
-                // Determine the scope name
-                var nameParts = currentState.self.name.split(".");
-
-                var localsName = "";
-                var partsLength = nameParts.length;
-
-                _.forEachRight(nameParts, function (part) {
-                    console.log("part: ", part);
-
-                    if (localsName.length === 0) {
-                        localsName += part;
-                    } else {
-                        localsName += "@" + part;
-                    }
-
-                });
-
-                console.log("localsName: ", localsName);
-
-                // this is correct scope, need to add checks to verify it exists then use it for
-                // interpolation
-                console.log("scope?: ", currentState.locals[localsName]);
-
+                /* Build the name of the scope we should target on locals */
+                var localsName = viewWithTitle + "@" + currentState.self.name.slice(0, currentState.self.name.lastIndexOf("."));
 
                 /* Interpolate the title */
-                if (_.has(currentState, "locals") && _.has(currentState.locals, "globals")) {
-                    currentState = currentState.locals.globals;
+                if (_.has(currentState, "locals") && _.has(currentState.locals, localsName)) {
+                    currentState = currentState.locals[localsName];
                 }
 
                 title = $interpolate(title)(currentState);
-                console.info("interpolated title: ", title);
 
                 if (_.isString(pattern)) {
                     title = pattern.replace(/\%s/g, title);
