@@ -29,7 +29,7 @@ function StateTitle ($rootScope, $interpolate, $state) {
                 var titleElement = attrs.titleElement || "pageTitle"; /* Where to look for the title in the data */
                 var pattern = attrs.pattern || null; /* Do we need to decorate the title? */
                 var currentState = $state.$current; /* Create reference to the current state */
-                var viewWithTitle;
+                var viewWithTitle = "";
 
                 /* Check for multiple views on the state */
                 if (_.has(toState, "views")) {
