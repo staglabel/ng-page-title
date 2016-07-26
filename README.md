@@ -145,6 +145,31 @@ page called "Home", this will set the title to "Home | My site".
 
 This will also work if you decide you want the title in multiple times.
 
+# Named UI-Router views
+
+When using [named views][named-views] only your primary view should contain a page title. If more
+than one page title is defined, the **first one found** will be used.
+
+```javascript
+.state('state', {
+    url: '...',
+    views: {
+        viewA: {
+            templateUrl: '...',
+            data: {
+                pageTitle: 'I am a title!',
+            },
+        },
+        viewB: {
+            templateUrl: '...',
+            data: {
+                pageTitle: 'So am I, but no one will ever see me.',
+            },
+        },
+    },
+})
+```
+
 # License
 
 MIT License
@@ -160,3 +185,5 @@ MIT License
 [travis-url]: https://travis-ci.org/riggerthegeek/ng-page-title
 [dependencies-url]: https://david-dm.org/riggerthegeek/ng-page-title
 [dev-dependencies-url]: https://david-dm.org/riggerthegeek/ng-page-title#info=devDependencies&view=table
+[named-views]: https://github.com/angular-ui/ui-router/wiki/Multiple-Named-Views
+

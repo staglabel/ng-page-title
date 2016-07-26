@@ -10,7 +10,6 @@
 
 /* Third-party modules */
 var _ = require("lodash");
-var angular = require("angular");
 require("angular-mocks");
 require("angular-route");
 

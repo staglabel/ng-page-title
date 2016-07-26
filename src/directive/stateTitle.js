@@ -28,16 +28,43 @@ function StateTitle ($rootScope, $interpolate, $state) {
                 var title = attrs.stateTitle || "Untitled page"; /* Get the default title */
                 var titleElement = attrs.titleElement || "pageTitle"; /* Where to look for the title in the data */
                 var pattern = attrs.pattern || null; /* Do we need to decorate the title? */
+                var currentState = $state.$current; /* Create reference to the current state */
+                var viewWithTitle = "";
 
-                /* Get the page title from the data element */
-                if (_.has(toState, "data") && _.has(toState.data, titleElement) && _.isEmpty(toState.data[titleElement]) === false) {
-                    title = toState.data[titleElement];
+                /* Check for multiple views on the state */
+                if (_.has(toState, "views")) {
+
+                    /* Find the name of first view found with a titleElement */
+                    viewWithTitle = _.findKey(toState.views, function (view) {
+                        if (_.has(view, "data." + titleElement)) {
+                            return view;
+                        }
+                    });
+
+                    title = toState.views[viewWithTitle].data[titleElement];
+
+                } else {
+
+                    /* Get the page title from the data element */
+                    if (_.has(toState, "data." + titleElement) && _.isEmpty(toState.data[titleElement]) === false) {
+                        title = toState.data[titleElement];
+                    }
+
+                }
+
+                /* Build the name of the scope we should target on locals */
+                var localsName;
+
+                // If this is a dot separated name
+                if (currentState.self.name.lastIndexOf(".") >= 0) {
+                    localsName = viewWithTitle + "@" + currentState.self.name.slice(0, currentState.self.name.lastIndexOf("."));
+                } else {
+                    localsName = viewWithTitle + "@" + currentState.self.name;
                 }
 
                 /* Interpolate the title */
-                var currentState = $state.$current;
-                if (_.has(currentState, "locals") && _.has(currentState.locals, "globals")) {
-                    currentState = currentState.locals.globals;
+                if (_.has(currentState, "locals") && _.has(currentState.locals, localsName)) {
+                    currentState = currentState.locals[localsName];
                 }
 
                 title = $interpolate(title)(currentState);
