@@ -2,7 +2,7 @@
  * ng-page-title
  *
  * @author Simon Emms <simon@simonemms.com>
- * @build 2016-07-17T13:35:56
+ * @build 2016-07-26T02:21:09
  * @description Page title directive for an Angular project
  * @license MIT
  * @version v1.1.1
@@ -12466,7 +12466,7 @@ function StateTitle ($rootScope, $interpolate, $state) {
                 var titleElement = attrs.titleElement || "pageTitle"; /* Where to look for the title in the data */
                 var pattern = attrs.pattern || null; /* Do we need to decorate the title? */
                 var currentState = $state.$current; /* Create reference to the current state */
-                var viewWithTitle;
+                var viewWithTitle = "";
 
                 /* Check for multiple views on the state */
                 if (_.has(toState, "views")) {
@@ -12490,7 +12490,14 @@ function StateTitle ($rootScope, $interpolate, $state) {
                 }
 
                 /* Build the name of the scope we should target on locals */
-                var localsName = viewWithTitle + "@" + currentState.self.name.slice(0, currentState.self.name.lastIndexOf("."));
+                var localsName;
+
+                // If this is a dot separated name
+                if (currentState.self.name.lastIndexOf(".") >= 0) {
+                    localsName = viewWithTitle + "@" + currentState.self.name.slice(0, currentState.self.name.lastIndexOf("."));
+                } else {
+                    localsName = viewWithTitle + "@" + currentState.self.name;
+                }
 
                 /* Interpolate the title */
                 if (_.has(currentState, "locals") && _.has(currentState.locals, localsName)) {

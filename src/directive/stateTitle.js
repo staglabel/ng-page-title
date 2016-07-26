@@ -53,7 +53,14 @@ function StateTitle ($rootScope, $interpolate, $state) {
                 }
 
                 /* Build the name of the scope we should target on locals */
-                var localsName = viewWithTitle + "@" + currentState.self.name.slice(0, currentState.self.name.lastIndexOf("."));
+                var localsName;
+
+                // If this is a dot separated name
+                if (currentState.self.name.lastIndexOf(".") >= 0) {
+                    localsName = viewWithTitle + "@" + currentState.self.name.slice(0, currentState.self.name.lastIndexOf("."));
+                } else {
+                    localsName = viewWithTitle + "@" + currentState.self.name;
+                }
 
                 /* Interpolate the title */
                 if (_.has(currentState, "locals") && _.has(currentState.locals, localsName)) {
