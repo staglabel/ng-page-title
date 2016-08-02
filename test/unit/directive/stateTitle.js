@@ -9,6 +9,7 @@
 
 
 /* Third-party modules */
+var angular = require("angular");
 require("angular-mocks");
 require("angular-ui-router");
 
@@ -100,92 +101,21 @@ describe("directive: stateTitle", function () {
 
         });
 
-        describe("single view", function () {
+        it("should interpolate a title", function () {
 
-            beforeEach(function () {
-                $state.$current.locals["@"] = {
-                    titleVar: function () {
-                        return "HARRUMBLE!"
-                    }
-                };
+            $state.$current.locals.globals = {
+                titleVar: function () {
+                    return "HARRUMBLE!"
+                }
+            };
+
+            compileTitle("<title state-title></title>", {
+                data: {
+                    pageTitle: "Harry Biscuit - {{ titleVar() }}"
+                }
             });
 
-            it("should interpolate a top level title", function () {
-
-                compileTitle("<title state-title></title>", {
-                    data: {
-                        pageTitle: "Harry Biscuit - {{ titleVar() }}"
-                    }
-                });
-
-                expect(element.text()).to.be.equal("Harry Biscuit - HARRUMBLE!");
-
-            });
-
-            it("should interpolate a title with a different element name", function () {
-
-                compileTitle("<title state-title title-element=\"myOtherTitle\"></title>", {
-                    data: {
-                        myOtherTitle: "Harry Biscuit - {{ titleVar() }}"
-                    }
-                });
-
-                expect(element.text()).to.be.equal("Harry Biscuit - HARRUMBLE!");
-
-            });
-
-        });
-
-        describe("named views", function () {
-            var state;
-
-            beforeEach(function () {
-                // Create our pseudo state
-                state = {
-                    data: {
-                        pageTitle: "Merchants"
-                    },
-                    views: {
-                        "": {
-                            data: {
-                                pageTitle: "Harry Biscuit - {{ titleVar() }}"
-                            }
-                        },
-                        "locations": {
-                        }
-                    }
-                };
-
-                // Stub how UI-Router would define the named views
-                $state.$current.views = {
-                    "@": {
-                        data: {
-                            pageTitle: "Harry Biscuit - {{ titleVar() }}"
-                        }
-                    },
-                    "locations@merchants": {
-                    }
-                };
-
-                // Stub in the state name
-                $state.$current.self = {
-                    name: "merchants"
-                };
-
-                $state.$current.locals["@merchants"] = {
-                    titleVar: function () {
-                        return "HARRUMBLE!"
-                    }
-                };
-            });
-
-            it("should interpolate a named view title", function () {
-
-                compileTitle("<title state-title></title>", state);
-
-                expect(element.text()).to.be.equal("Harry Biscuit - HARRUMBLE!");
-
-            });
+            expect(element.text()).to.be.equal("Harry Biscuit - HARRUMBLE!");
 
         });
 
@@ -198,6 +128,24 @@ describe("directive: stateTitle", function () {
             });
 
             expect(element.text()).to.be.equal("My title");
+
+        });
+
+        it("should interpolate a title with a different element name", function () {
+
+            $state.$current.locals.globals = {
+                titleVar: function () {
+                    return "HARRUMBLE!"
+                }
+            };
+
+            compileTitle("<title state-title title-element=\"myOtherTitle\"></title>", {
+                data: {
+                    myOtherTitle: "Harry Biscuit - {{ titleVar() }}"
+                }
+            });
+
+            expect(element.text()).to.be.equal("Harry Biscuit - HARRUMBLE!");
 
         });
 
