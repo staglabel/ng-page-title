@@ -2,7 +2,7 @@
  * ng-page-title
  *
  * @author Simon Emms <simon@simonemms.com>
- * @build 2016-07-26T02:21:09
+ * @build 2016-08-02T12:19:42
  * @description Page title directive for an Angular project
  * @license MIT
  * @version v1.1.1
@@ -12431,7 +12431,7 @@ function PageTitle ($rootScope, $interpolate, $route) {
 }
 
 
-module.exports = PageTitle;
+module.exports = ["$rootScope", "$interpolate", "$route", PageTitle];
 
 },{"lodash":1}],3:[function(require,module,exports){
 /**
@@ -12529,7 +12529,7 @@ function StateTitle ($rootScope, $interpolate, $state) {
 }
 
 
-module.exports = StateTitle;
+module.exports = ["$rootScope", "$interpolate", "$state", StateTitle];
 
 },{"lodash":1}],4:[function(require,module,exports){
 /**
