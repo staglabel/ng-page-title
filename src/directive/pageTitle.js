@@ -65,4 +65,4 @@ function PageTitle ($rootScope, $interpolate, $route) {
 }
 
 
-module.exports = PageTitle;
+module.exports = ["$rootScope", "$interpolate", "$route", PageTitle];

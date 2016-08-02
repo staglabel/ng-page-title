@@ -92,4 +92,4 @@ function StateTitle ($rootScope, $interpolate, $state) {
 }
 
 
-module.exports = StateTitle;
+module.exports = ["$rootScope", "$interpolate", "$state", StateTitle];
