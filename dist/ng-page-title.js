@@ -2,10 +2,10 @@
  * ng-page-title
  *
  * @author Simon Emms <simon@simonemms.com>
- * @build 2016-08-02T12:19:42
+ * @build 2016-08-02T20:52:23
  * @description Page title directive for an Angular project
  * @license MIT
- * @version v1.1.1
+ * @version v1.3.0
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -12431,7 +12431,7 @@ function PageTitle ($rootScope, $interpolate, $route) {
 }
 
 
-module.exports = ["$rootScope", "$interpolate", "$route", PageTitle];
+module.exports = PageTitle;
 
 },{"lodash":1}],3:[function(require,module,exports){
 /**
@@ -12465,43 +12465,16 @@ function StateTitle ($rootScope, $interpolate, $state) {
                 var title = attrs.stateTitle || "Untitled page"; /* Get the default title */
                 var titleElement = attrs.titleElement || "pageTitle"; /* Where to look for the title in the data */
                 var pattern = attrs.pattern || null; /* Do we need to decorate the title? */
-                var currentState = $state.$current; /* Create reference to the current state */
-                var viewWithTitle = "";
 
-                /* Check for multiple views on the state */
-                if (_.has(toState, "views")) {
-
-                    /* Find the name of first view found with a titleElement */
-                    viewWithTitle = _.findKey(toState.views, function (view) {
-                        if (_.has(view, "data." + titleElement)) {
-                            return view;
-                        }
-                    });
-
-                    title = toState.views[viewWithTitle].data[titleElement];
-
-                } else {
-
-                    /* Get the page title from the data element */
-                    if (_.has(toState, "data." + titleElement) && _.isEmpty(toState.data[titleElement]) === false) {
-                        title = toState.data[titleElement];
-                    }
-
-                }
-
-                /* Build the name of the scope we should target on locals */
-                var localsName;
-
-                // If this is a dot separated name
-                if (currentState.self.name.lastIndexOf(".") >= 0) {
-                    localsName = viewWithTitle + "@" + currentState.self.name.slice(0, currentState.self.name.lastIndexOf("."));
-                } else {
-                    localsName = viewWithTitle + "@" + currentState.self.name;
+                /* Get the page title from the data element */
+                if (_.has(toState, "data") && _.has(toState.data, titleElement) && _.isEmpty(toState.data[titleElement]) === false) {
+                    title = toState.data[titleElement];
                 }
 
                 /* Interpolate the title */
-                if (_.has(currentState, "locals") && _.has(currentState.locals, localsName)) {
-                    currentState = currentState.locals[localsName];
+                var currentState = $state.$current;
+                if (_.has(currentState, "locals") && _.has(currentState.locals, "globals")) {
+                    currentState = currentState.locals.globals;
                 }
 
                 title = $interpolate(title)(currentState);
@@ -12529,7 +12502,7 @@ function StateTitle ($rootScope, $interpolate, $state) {
 }
 
 
-module.exports = ["$rootScope", "$interpolate", "$state", StateTitle];
+module.exports = StateTitle;
 
 },{"lodash":1}],4:[function(require,module,exports){
 /**
