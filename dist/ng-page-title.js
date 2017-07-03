@@ -2,7 +2,7 @@
  * ng-page-title
  *
  * @author Simon Emms <simon@simonemms.com>
- * @build 2016-08-05T17:34:26
+ * @build 2017-07-03T09:22:09
  * @description Page title directive for an Angular project
  * @license MIT
  * @version v1.3.1
@@ -12445,7 +12445,7 @@ module.exports = PageTitle;
 
 
 /* Third-party modules */
-StateTitle.$inject = ["$rootScope", "$interpolate", "$state"];
+StateTitle.$inject = ["$rootScope", "$interpolate", "$state", "$transitions"];
 var _ = require("lodash");
 
 
@@ -12453,7 +12453,7 @@ var _ = require("lodash");
 
 
 /* @ngInject */
-function StateTitle ($rootScope, $interpolate, $state) {
+function StateTitle ($rootScope, $interpolate, $state, $transitions) {
 
 
     return {
@@ -12488,7 +12488,7 @@ function StateTitle ($rootScope, $interpolate, $state) {
 
             };
 
-            $rootScope.$on("$stateChangeSuccess", listener);
+            $transitions.onSuccess({}, function (trans) { listener(trans, trans.to()); });
 
         },
 
