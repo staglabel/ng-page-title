@@ -52,6 +52,7 @@ function StateTitle ($rootScope, $interpolate, $state, $transitions) {
             };
 
             $transitions.onSuccess({}, function (trans) { listener(trans, trans.to()); });
+            $rootScope.$on("$stateChangeSuccess", listener);
 
         },
 

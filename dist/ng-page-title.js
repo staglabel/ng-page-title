@@ -2,7 +2,7 @@
  * ng-page-title
  *
  * @author Simon Emms <simon@simonemms.com>
- * @build 2017-07-03T09:22:09
+ * @build 2017-07-03T23:25:57
  * @description Page title directive for an Angular project
  * @license MIT
  * @version v1.3.1
@@ -12489,6 +12489,7 @@ function StateTitle ($rootScope, $interpolate, $state, $transitions) {
             };
 
             $transitions.onSuccess({}, function (trans) { listener(trans, trans.to()); });
+            $rootScope.$on("$stateChangeSuccess", listener);
 
         },
 
