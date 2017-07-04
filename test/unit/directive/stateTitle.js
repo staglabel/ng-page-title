@@ -11,7 +11,7 @@
 /* Third-party modules */
 var angular = require("angular");
 require("angular-mocks");
-require("angular-ui-router");
+require("@uirouter/angularjs");
 
 
 /* Files */
