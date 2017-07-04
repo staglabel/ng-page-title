@@ -11,7 +11,7 @@
 /* Third-party modules */
 var angular = require("angular");
 require("angular-mocks");
-require("angular-ui-router");
+require("@uirouter/angularjs");
 
 
 /* Files */
@@ -23,26 +23,32 @@ describe("directive: stateTitle", function () {
         $rootScope,
         $compile,
         $state,
+        $transitions,
         element;
 
     beforeEach(angular.mock.module("ngPageTitle"));
     beforeEach(angular.mock.module("ui.router"));
 
-    beforeEach(angular.mock.inject(function (_$rootScope_, _$compile_, _$state_) {
+    beforeEach(angular.mock.inject(function (_$rootScope_, _$compile_, _$state_, _$transitions_) {
 
         $rootScope = _$rootScope_;
         $scope = $rootScope.$new();
         $compile = _$compile_;
         $state = _$state_;
+        $transitions = _$transitions_;
 
     }));
 
-    function compileTitle (title, toState) {
+    function compileTitle(title, toState) {
 
         return $scope.$apply(function () {
             element = $compile(title)($scope);
 
             $rootScope.$emit("$stateChangeSuccess", toState);
+
+            if (toState) {
+                $state.go(toState);
+            }
         });
 
     }
@@ -103,6 +109,8 @@ describe("directive: stateTitle", function () {
 
         it("should interpolate a title", function () {
 
+            $state.$current.locals = {};
+
             $state.$current.locals.globals = {
                 titleVar: function () {
                     return "HARRUMBLE!"
@@ -132,6 +140,7 @@ describe("directive: stateTitle", function () {
         });
 
         it("should interpolate a title with a different element name", function () {
+            $state.$current.locals = {};
 
             $state.$current.locals.globals = {
                 titleVar: function () {
