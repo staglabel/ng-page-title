@@ -14,7 +14,7 @@ The `<title>` tag is something that needs to be done on pretty much every projec
 in AngularJS if you aren't sure what you're doing.  This makes it the work of but-a-moment to put in a dynamic page
 title. It also interpolates resolved data automatically.
 
-This works for both [UI Router](http://angular-ui.github.io/ui-router/site/#/api/ui.router) states and the default
+This works for both [UI Router](https://ui-router.github.io/ng1/docs/1.0.0/) states and the default
 Angular [Route](https://docs.angularjs.org/api/ngRoute/service/$route).  If you are using UI Router, use the
 `state-title` directive and if you are using ngRoute then use the `page-title` directive.
 
