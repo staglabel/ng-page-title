@@ -16,7 +16,7 @@ var _ = require("lodash");
 
 
 /* @ngInject */
-function StateTitle ($rootScope, $interpolate, $state, $transitions) {
+function StateTitle ($rootScope, $interpolate, $state, $injector) {
 
 
     return {
@@ -51,8 +51,12 @@ function StateTitle ($rootScope, $interpolate, $state, $transitions) {
 
             };
 
-            $transitions.onSuccess({}, function (trans) { listener(trans, trans.to()); });
-            $rootScope.$on("$stateChangeSuccess", listener);
+            if ($injector.has('$transitions')) {
+               $transitions.onSuccess({}, function (trans) { listener(trans, trans.to()); });
+            }
+            else if ($injector.has('$state')) {
+               $rootScope.$on("$stateChangeSuccess", listener);
+            }
 
         },
 
