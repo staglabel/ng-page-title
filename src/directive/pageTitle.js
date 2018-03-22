@@ -51,7 +51,7 @@ function PageTitle ($rootScope, $interpolate, $injector) {
 
             };
 
-            if ($injector.has('$route')) {
+            if ($injector.has("$route")) {
                 $rootScope.$on("$routeChangeSuccess", listener);
             }
         },

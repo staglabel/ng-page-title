@@ -51,11 +51,14 @@ function StateTitle ($rootScope, $interpolate, $state, $injector) {
 
             };
 
-            if ($injector.has('$transitions')) {
-               $transitions.onSuccess({}, function (trans) { listener(trans, trans.to()); });
+            if ($injector.has("$transitions")) {
+                var $transitions = $injector.get("$transitions");
+
+                $transitions.onSuccess({}, function (trans) { listener(trans, trans.to()); });
             }
-            else if ($injector.has('$state')) {
-               $rootScope.$on("$stateChangeSuccess", listener);
+
+            if ($injector.has("$state")) {
+                $rootScope.$on("$stateChangeSuccess", listener);
             }
 
         },

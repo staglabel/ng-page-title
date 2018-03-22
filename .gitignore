@@ -43,3 +43,4 @@ bower_components
 /public/dist/
 public/src/scripts/templates.js
 server/migrations/.migrations
+/package-lock.json

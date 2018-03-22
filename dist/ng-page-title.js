@@ -2,10 +2,10 @@
  * ng-page-title
  *
  * @author Simon Emms <simon@simonemms.com>
- * @build 2017-07-03T23:31:31
+ * @build 2018-03-22T10:18:29
  * @description Page title directive for an Angular project
  * @license MIT
- * @version v1.3.1
+ * @version v1.3.3
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -12374,7 +12374,7 @@
 
 
 /* Third-party modules */
-PageTitle.$inject = ["$rootScope", "$interpolate", "$route"];
+PageTitle.$inject = ["$rootScope", "$interpolate", "$injector"];
 var _ = require("lodash");
 
 
@@ -12382,7 +12382,7 @@ var _ = require("lodash");
 
 
 /* @ngInject */
-function PageTitle ($rootScope, $interpolate, $route) {
+function PageTitle ($rootScope, $interpolate, $injector) {
 
 
     return {
@@ -12417,8 +12417,9 @@ function PageTitle ($rootScope, $interpolate, $route) {
 
             };
 
-            $rootScope.$on("$routeChangeSuccess", listener);
-
+            if ($injector.has("$route")) {
+                $rootScope.$on("$routeChangeSuccess", listener);
+            }
         },
 
         restrict: "A",
@@ -12445,7 +12446,7 @@ module.exports = PageTitle;
 
 
 /* Third-party modules */
-StateTitle.$inject = ["$rootScope", "$interpolate", "$state", "$transitions"];
+StateTitle.$inject = ["$rootScope", "$interpolate", "$state", "$injector"];
 var _ = require("lodash");
 
 
@@ -12453,7 +12454,7 @@ var _ = require("lodash");
 
 
 /* @ngInject */
-function StateTitle ($rootScope, $interpolate, $state, $transitions) {
+function StateTitle ($rootScope, $interpolate, $state, $injector) {
 
 
     return {
@@ -12488,8 +12489,15 @@ function StateTitle ($rootScope, $interpolate, $state, $transitions) {
 
             };
 
-            $transitions.onSuccess({}, function (trans) { listener(trans, trans.to()); });
-            $rootScope.$on("$stateChangeSuccess", listener);
+            if ($injector.has("$transitions")) {
+                var $transitions = $injector.get("$transitions");
+
+                $transitions.onSuccess({}, function (trans) { listener(trans, trans.to()); });
+            }
+
+            if ($injector.has("$state")) {
+                $rootScope.$on("$stateChangeSuccess", listener);
+            }
 
         },
 
