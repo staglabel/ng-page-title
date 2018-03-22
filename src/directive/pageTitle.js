@@ -16,7 +16,7 @@ var _ = require("lodash");
 
 
 /* @ngInject */
-function PageTitle ($rootScope, $interpolate, $route) {
+function PageTitle ($rootScope, $interpolate, $injector) {
 
 
     return {
@@ -51,8 +51,9 @@ function PageTitle ($rootScope, $interpolate, $route) {
 
             };
 
-            $rootScope.$on("$routeChangeSuccess", listener);
-
+            if ($injector.has('$route')) {
+                $rootScope.$on("$routeChangeSuccess", listener);
+            }
         },
 
         restrict: "A",
